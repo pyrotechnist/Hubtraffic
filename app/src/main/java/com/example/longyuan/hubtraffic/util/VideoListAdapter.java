@@ -1,12 +1,18 @@
 package com.example.longyuan.hubtraffic.util;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -51,6 +57,40 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
         holder.aTextView_title.setText(aPost.getTitle());
 
+        //holder.aVideoView.setMediaController(new MediaController(mContext));
+
+//设置视频源播放res/raw中的文件,文件名小写字母,格式: 3gp,mp4等,flv的不一定支持;
+        //Uri rawUri = Uri.parse("android.resource://" + mContext.getPackageName() + "/" + R.raw.shuai_dan_ge);
+        //holder.aVideoView.setVideoURI(rawUri);
+
+// 播放在线视频
+
+       // Uri mVideoUri = Uri.parse(aPost.getUrl());
+        //holder.aVideoView.setVideoURI(mVideoUri);
+       // holder.aVideoView.setVideoPath(mVideoUri.toString());
+
+       // holder.aVideoView.start();
+       // holder.aVideoView.requestFocus();
+
+        //声明WebSettings子类
+       /* WebSettings webSettings = holder.aVideoView.getSettings();
+
+//如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
+        webSettings.setJavaScriptEnabled(true);
+
+        holder.aVideoView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+
+        //holder.aVideoView.loadUrl(aPost.getUrl());
+
+        holder.aVideoView.loadData("<iframe src=\""+  aPost.getUrl()  +"\" frameborder=\"0\" width=\"608\" height=\"468\" scrolling=\"no\"></iframe>","text/html", "utf-8");*/
+
+
         Glide.with(mContext).load(aPost.getDefaultThumb()).into(holder.aImageView);
 
     }
@@ -77,6 +117,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
         @BindView(R.id.video_image)
         ImageView aImageView;
+
+/*
+        @BindView(R.id.video_video)
+        WebView aVideoView;
+*/
 
         public VideoListViewHolder(View itemView) {
             super(itemView);

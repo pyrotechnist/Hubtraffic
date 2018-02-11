@@ -16,11 +16,17 @@ public interface MainContract {
 
         void updateData(List<VideosItem> videosItemList);
 
+        void errorToast(String error);
+
     }
 
     interface Presenter{
 
         void start();
+
+        void loadVideos();
+
+        void refreshVideos();
 
     }
 }

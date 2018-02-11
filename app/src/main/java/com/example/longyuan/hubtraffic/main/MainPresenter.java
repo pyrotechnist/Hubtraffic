@@ -3,10 +3,15 @@ package com.example.longyuan.hubtraffic.main;
 import android.util.Log;
 
 import com.example.longyuan.hubtraffic.App;
+import com.example.longyuan.hubtraffic.datastore.DataStore;
+import com.example.longyuan.hubtraffic.datastore.VideoRepository;
 import com.example.longyuan.hubtraffic.network.api.PornhubAPI;
+import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosResponse;
+import com.example.longyuan.hubtraffic.videodetail.VideoDetailActivity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -20,10 +25,16 @@ import rx.schedulers.Schedulers;
 
 public class MainPresenter implements MainContract.Presenter {
 
+    private final static String TAG = MainPresenter.class.getSimpleName();
+
     private MainContract.View mView;
 
+   /* @Inject
+    PornhubAPI mPornhubAPI;*/
+
     @Inject
-    PornhubAPI mPornhubAPI;
+    protected VideoRepository mVideoRepository;
+
 
 
     public MainPresenter(MainContract.View view) {
@@ -41,21 +52,50 @@ public class MainPresenter implements MainContract.Presenter {
         loadVideos();
     }
 
-    private void loadVideos() {
+    @Override
+    public void loadVideos() {
 
         Map<String, String> queries = new HashMap<>();
         queries.put("thumbsize ", "medium");
 
 
-        mPornhubAPI.getVideos(queries)
+        mVideoRepository.loadVideos(new DataStore.LoadVideosCallback() {
+            @Override
+            public void onVideosLoaded(List<VideosItem> videosItems) {
+                updateData(videosItems);
+            }
+
+            @Override
+            public void onError(String error) {
+
+                mView.errorToast(error);
+            }
+        });
+
+      /*  mPornhubAPI.getVideos(queries)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 // .map(data -> checkLatestPOstList(data))
-                .subscribe(data ->  updateData(data),throwable -> Log.d("",throwable.getLocalizedMessage()));
+                .subscribe(data ->  updateData(data),throwable -> Log.d("",throwable.getLocalizedMessage()));*/
 
     }
 
-    private void updateData(VideosResponse videosResponse){
-        mView.updateData(videosResponse.getVideos());
+   @Override
+    public void refreshVideos() {
+       /* mVideoRepository.loadVideos(new DataStore.LoadVideosCallback() {
+            @Override
+            public void onVideosLoaded(List<VideosItem> videosItems) {
+                updateData(videosItems);
+            }
+        },true);*/
+
     }
+
+
+
+    private void updateData(List<VideosItem> videosItems){
+        mView.updateData(videosItems);
+    }
+
+
 }

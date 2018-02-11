@@ -16,10 +16,10 @@ public class MainModule {
         mView = view;
     }
 
-    @Provides
+/*    @Provides
     MainContract.View provideUniversityContractView() {
         return mView;
-    }
+    }*/
 
     @Provides
     MainContract.Presenter provideMainContractPresenter() {
