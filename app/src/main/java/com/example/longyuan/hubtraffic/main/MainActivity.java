@@ -18,12 +18,23 @@ import com.example.longyuan.hubtraffic.R;
 
 import javax.inject.Inject;
 
+import static com.example.longyuan.hubtraffic.star.StarsActivity.EXTRA_STAR;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     protected MainContract.Presenter mMainPresenter;
 
+    public static final String EXTRA_TAG = "TAG";
+
+    public static final String EXTRA_CATEGORY = "CATEGORY";
+
+    private String mTag;
+
+    private String mCategory;
+
+    private String mStarName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +43,40 @@ public class MainActivity extends AppCompatActivity
 
         setUpToolbar();
 
+        mTag = getIntent().getStringExtra(EXTRA_TAG);
+
+        mCategory = getIntent().getStringExtra(mCategory);
+
+        mStarName = getIntent().getStringExtra(EXTRA_STAR);
+
+
         MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frag_main);
 
         if(mainFragment == null)
         {
             mainFragment = MainFragment.getInstance();
+            Bundle args = new Bundle();
+            if(mTag != null){
+
+
+                args.putString(EXTRA_TAG, mTag);
+
+
+            }
+
+            if(mCategory != null){
+
+                args.putString(EXTRA_CATEGORY, mCategory);
+            }
+
+            if(mStarName != null){
+
+                args.putString(EXTRA_STAR, mStarName);
+
+            }
+
+            if(!args.isEmpty())
+            mainFragment.setArguments(args);
 
             getSupportFragmentManager().beginTransaction().add(R.id.frag_main,mainFragment).commit();
         }

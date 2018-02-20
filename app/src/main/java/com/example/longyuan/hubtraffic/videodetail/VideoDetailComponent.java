@@ -15,4 +15,5 @@ import dagger.Component;
 public interface VideoDetailComponent {
 
     void inject(VideoDetailActivity activity);
+
 }

@@ -15,6 +15,28 @@ public class Star{
 	@SerializedName("star_url")
 	private String starUrl;
 
+	@SerializedName("videos_count_all")
+	private String videosCount;
+
+	@SerializedName("gender")
+	private String gender;
+
+	public String getVideosCount() {
+		return videosCount;
+	}
+
+	public void setVideosCount(String videosCount) {
+		this.videosCount = videosCount;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	public void setStarName(String starName){
 		this.starName = starName;
 	}

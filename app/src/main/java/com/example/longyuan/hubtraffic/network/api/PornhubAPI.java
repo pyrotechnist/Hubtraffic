@@ -1,10 +1,9 @@
 package com.example.longyuan.hubtraffic.network.api;
 
+import com.example.longyuan.hubtraffic.pojo.category.CategoriesResponse;
 import com.example.longyuan.hubtraffic.pojo.star.StarsDetailResponse;
-import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosResponse;
 
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.http.GET;
@@ -22,5 +21,8 @@ public interface PornhubAPI {
 
     @GET("stars_detailed")
     Observable<StarsDetailResponse> getStarsDetail();
+
+    @GET("categories")
+    Observable<CategoriesResponse> getCategories();
 
 }

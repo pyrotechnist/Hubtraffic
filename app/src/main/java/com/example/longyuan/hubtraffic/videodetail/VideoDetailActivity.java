@@ -35,7 +35,7 @@ public class VideoDetailActivity extends AppCompatActivity {
 
         if(universityDetailsFragment == null)
         {
-            universityDetailsFragment =  VideoDetailFragment.getInstance();
+            universityDetailsFragment =  VideoDetailFragment.getInstance(mVideoId);
 
             getSupportFragmentManager().beginTransaction().add(R.id.frag_video_detail_content,universityDetailsFragment).commit();
 

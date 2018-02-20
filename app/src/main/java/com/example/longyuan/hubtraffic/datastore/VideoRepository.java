@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import com.example.longyuan.hubtraffic.datastore.DataStore;
 import com.example.longyuan.hubtraffic.datastore.local.LocalDataStore;
 import com.example.longyuan.hubtraffic.datastore.remote.RemoteDataStore;
+import com.example.longyuan.hubtraffic.pojo.video.TagsItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 import com.example.longyuan.hubtraffic.repository.IVideoRepository;
 
@@ -44,15 +45,18 @@ public class VideoRepository implements DataStore {
 
     @Override
     public void loadVideos(LoadVideosCallback loadVideosCallback) {
-        loadVideos(loadVideosCallback,false);
+        loadVideos(loadVideosCallback,null,false);
     }
 
+    public void loadVideos(LoadVideosCallback loadVideosCallback,Map<String,String> map) {
+        loadVideos(loadVideosCallback,map,true);
+    }
 
-    public void loadVideos(LoadVideosCallback loadVideosCallback,boolean forceUpdate) {
+    public void loadVideos(LoadVideosCallback loadVideosCallback,Map<String,String> map,boolean forceUpdate) {
 
         if(forceUpdate || mVideosItemListCache == null)
         {
-           getVideosFromRemoteStore(loadVideosCallback);
+           getVideosFromRemoteStore(loadVideosCallback,map);
         }else
         {
             loadVideosCallback.onVideosLoaded(new ArrayList<VideosItem>(mVideosItemListCache.values()));
@@ -60,13 +64,31 @@ public class VideoRepository implements DataStore {
 
     }
 
+
+    /*
+
+     */
+    public void loadVideos(LoadVideosCallback loadVideosCallback,boolean forceUpdate,String videoId) {
+
+        List<TagsItem> tagList = mVideosItemListCache.get(videoId).getTags();
+
+
+
+    }
+
+
+
+
+
+
+
     public void loadVideo(LoadVideoItemCallback loadVideoItemCallback,String videoId){
 
         loadVideoItemCallback.onVideoItemLoaded(mVideosItemListCache.get(videoId));
 
     }
 
-    private void getVideosFromRemoteStore(LoadVideosCallback loadVideosCallback){
+    private void getVideosFromRemoteStore(LoadVideosCallback loadVideosCallback,Map map){
 
 
         mRemoteDataStore.loadVideos(new LoadVideosCallback() {
@@ -82,7 +104,7 @@ public class VideoRepository implements DataStore {
                 Log.d(TAG,error);
                 loadVideosCallback.onError(error);
             }
-        });
+        },map);
 
     }
 
@@ -103,6 +125,17 @@ public class VideoRepository implements DataStore {
             mVideosItemListCache.put(video.getVideoId(),video);
 
         }
+
+    }
+
+
+
+
+
+    public void loadStars(LoadStarsCallback loadStarsCallback){
+
+        mRemoteDataStore.loadStars(loadStarsCallback);
+
 
     }
 

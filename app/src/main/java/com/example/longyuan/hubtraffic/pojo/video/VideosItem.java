@@ -22,6 +22,9 @@ public class VideosItem{
 	@SerializedName("tags")
 	private List<TagsItem> tags;
 
+	@SerializedName("categories")
+	private List<CategoriesItem> categories;
+
 	@SerializedName("duration")
 	private String duration;
 
@@ -84,6 +87,14 @@ public class VideosItem{
 
 	public List<TagsItem> getTags(){
 		return tags;
+	}
+
+	public void setCategories(List<CategoriesItem> categories){
+		this.categories = categories;
+	}
+
+	public List<CategoriesItem> getCategories(){
+		return categories;
 	}
 
 	public void setDuration(String duration){
@@ -158,8 +169,9 @@ public class VideosItem{
 			",rating = '" + rating + '\'' + 
 			",title = '" + title + '\'' + 
 			",url = '" + url + '\'' + 
-			",tags = '" + tags + '\'' + 
-			",duration = '" + duration + '\'' + 
+			",tags = '" + tags + '\'' +
+					",categories = '" + categories + '\'' +
+					",duration = '" + duration + '\'' +
 			",ratings = '" + ratings + '\'' + 
 			",default_thumb = '" + defaultThumb + '\'' + 
 			",publish_date = '" + publishDate + '\'' + 

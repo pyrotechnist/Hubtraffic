@@ -33,6 +33,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
     private Context mContext;
 
+    private OnItemClickListener.OnVideoItemClickListener mOnVideoItemClickListener;
+
     public VideoListAdapter(List<VideosItem> mPostList, Context mContext) {
         this.mVideoList = mPostList;
         this.mContext = mContext;
@@ -42,6 +44,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     @Override
     public VideoListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_item,parent,false);
+
+
 
         return new VideoListViewHolder(itemView);
     }
@@ -90,6 +94,14 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
         holder.aVideoView.loadData("<iframe src=\""+  aPost.getUrl()  +"\" frameborder=\"0\" width=\"608\" height=\"468\" scrolling=\"no\"></iframe>","text/html", "utf-8");*/
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnVideoItemClickListener.onItemClick(aPost);
+            }
+        });
+
+
 
         Glide.with(mContext).load(aPost.getDefaultThumb()).into(holder.aImageView);
 
@@ -98,6 +110,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     @Override
     public int getItemCount() {
         return mVideoList.size();
+    }
+
+
+    public void setOnVideoItemClickListener(OnItemClickListener.OnVideoItemClickListener onVideoItemClickListener) {
+        mOnVideoItemClickListener = onVideoItemClickListener;
     }
 
     public static class VideoListViewHolder extends RecyclerView.ViewHolder{

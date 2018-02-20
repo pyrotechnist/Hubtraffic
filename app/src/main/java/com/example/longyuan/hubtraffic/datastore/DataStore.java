@@ -1,5 +1,6 @@
 package com.example.longyuan.hubtraffic.datastore;
 
+import com.example.longyuan.hubtraffic.pojo.star.StarsItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 
 import java.util.List;
@@ -17,6 +18,16 @@ public interface DataStore {
          void onError(String error);
 
     }
+
+
+    interface LoadStarsCallback {
+
+        void onStarsLoaded(List<StarsItem> starsItems);
+
+        void onError(String error);
+
+    }
+
 
     interface LoadVideoItemCallback {
 

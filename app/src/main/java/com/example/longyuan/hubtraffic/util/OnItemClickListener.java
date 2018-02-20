@@ -1,6 +1,7 @@
 package com.example.longyuan.hubtraffic.util;
 
 
+import com.example.longyuan.hubtraffic.pojo.star.StarsItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 
 /**
@@ -15,6 +16,14 @@ public interface OnItemClickListener {
         void onItemClick(VideosItem item);
 
        // void onItemLongClick(NewlistItem item, int position);
+
+    }
+
+    interface OnStarItemClickListener{
+
+        void onItemClick(StarsItem item);
+
+        // void onItemLongClick(NewlistItem item, int position);
 
     }
 

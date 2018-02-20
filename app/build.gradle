@@ -29,6 +29,10 @@ dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-annotations:26.0.0'
+
+    // flow layout
+    implementation 'com.google.android:flexbox:0.3.2'
 
 
     implementation 'com.android.support:recyclerview-v7:26.1.0'
@@ -61,6 +65,7 @@ dependencies {
     //Gson
     implementation 'com.google.code.gson:gson:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:3.7.0'

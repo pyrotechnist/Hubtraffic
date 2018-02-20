@@ -25,6 +25,10 @@
         <activity
             android:name=".videodetail.VideoDetailActivity"
             android:label="@string/title_activity_video_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".star.StarsActivity"
+            android:label="@string/title_activity_stars"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
