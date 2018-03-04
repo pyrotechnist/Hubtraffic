@@ -36,6 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.longyuan.hubtraffic.main.MainActivity.EXTRA_CATEGORY;
 import static com.example.longyuan.hubtraffic.main.MainActivity.EXTRA_TAG;
 import static com.example.longyuan.hubtraffic.star.StarsActivity.EXTRA_STAR;
 import static com.example.longyuan.hubtraffic.util.enums.SearchOrdering.FEATURED;
@@ -194,6 +195,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         if (getArguments() != null) {
             mTag = getArguments().getString(EXTRA_TAG);
             mStarName = getArguments().getString(EXTRA_STAR);
+            mCategory =  getArguments().getString(EXTRA_CATEGORY);
         }
 
         // mSpinner.

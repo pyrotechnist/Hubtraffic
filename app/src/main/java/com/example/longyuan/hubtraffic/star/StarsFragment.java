@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.longyuan.hubtraffic.R;
 import com.example.longyuan.hubtraffic.main.MainActivity;
 import com.example.longyuan.hubtraffic.pojo.star.StarsItem;
+import com.example.longyuan.hubtraffic.stardetail.StarDetailActivity;
 import com.example.longyuan.hubtraffic.util.OnItemClickListener;
 import com.example.longyuan.hubtraffic.util.StarListAdapter;
 import com.example.longyuan.hubtraffic.videodetail.VideoDetailActivity;
@@ -69,7 +70,7 @@ public class StarsFragment extends Fragment implements StarsContract.View {
         mStarListAdapter.setOnStarItemClickListener(new OnItemClickListener.OnStarItemClickListener() {
             @Override
             public void onItemClick(StarsItem item) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
+                Intent intent = new Intent(getContext(), StarDetailActivity.class);
 
                 intent.putExtra(EXTRA_STAR, item.getStar().getStarName());
 

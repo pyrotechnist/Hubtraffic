@@ -7,6 +7,8 @@ import android.util.SparseArray;
 import com.example.longyuan.hubtraffic.datastore.DataStore;
 import com.example.longyuan.hubtraffic.datastore.local.LocalDataStore;
 import com.example.longyuan.hubtraffic.datastore.remote.RemoteDataStore;
+import com.example.longyuan.hubtraffic.pojo.category.Category;
+import com.example.longyuan.hubtraffic.pojo.star.StarsItem;
 import com.example.longyuan.hubtraffic.pojo.video.TagsItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 import com.example.longyuan.hubtraffic.repository.IVideoRepository;
@@ -33,6 +35,11 @@ public class VideoRepository implements DataStore {
 
     private ArrayMap<String,VideosItem> mVideosItemListCache;
 
+    private ArrayMap<String,StarsItem> mStarListCache;
+
+    private List<Category> mCategoriesCache;
+
+   // private List<StarsItem> mStarsCache;
 
     private LoadVideosCallback mLoadVideosCallback;
 
@@ -78,10 +85,6 @@ public class VideoRepository implements DataStore {
 
 
 
-
-
-
-
     public void loadVideo(LoadVideoItemCallback loadVideoItemCallback,String videoId){
 
         loadVideoItemCallback.onVideoItemLoaded(mVideosItemListCache.get(videoId));
@@ -116,10 +119,6 @@ public class VideoRepository implements DataStore {
         }
 
         mVideosItemListCache.clear();
-        //mVideosItemListCache = videosItems;
-
-
-        //Map<Integer, VideosItem> appleMap = videosItems.stream().collect(Collectors.toMap(Apple::getId, a -> a,(k1, k2)->k1));
 
         for(VideosItem video : videosItems ){
             mVideosItemListCache.put(video.getVideoId(),video);
@@ -128,17 +127,77 @@ public class VideoRepository implements DataStore {
 
     }
 
-
-
-
-
     public void loadStars(LoadStarsCallback loadStarsCallback){
 
-        mRemoteDataStore.loadStars(loadStarsCallback);
+        if(mStarListCache == null || mStarListCache.size()==0)
+        {
 
+            mRemoteDataStore.loadStars(new LoadStarsCallback() {
+                @Override
+                public void onStarsLoaded(List<StarsItem> starsItems) {
+                    refreshStarCache(starsItems);
+                    loadStarsCallback.onStarsLoaded(starsItems);
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+        }else {
+
+            loadStarsCallback.onStarsLoaded(new ArrayList<StarsItem>(mStarListCache.values()));
+        }
+    }
+
+    private void refreshStarCache(List<StarsItem> starsItems){
+
+        if(mStarListCache == null)
+        {
+            mStarListCache = new ArrayMap<>();
+        }
+
+        mStarListCache.clear();
+
+        for(StarsItem star : starsItems ){
+            mStarListCache.put(star.getStar().getStarName(),star);
+
+        }
 
     }
 
+
+    public void loadStarDetail(LoadStarItemCallback loadStarItemCallback,String starName){
+
+        loadStarItemCallback.onStarItemLoaded(mStarListCache.get(starName));
+    }
+
+    public void loadCategories(LoadCategoriesCallback loadCategoriesCallback){
+
+        if(mCategoriesCache == null || mCategoriesCache.size()==0)
+        {
+
+            mCategoriesCache = new ArrayList<>();
+            mRemoteDataStore.loadCategories(new LoadCategoriesCallback() {
+                @Override
+                public void onCategoriesLoaded(List<Category> categories) {
+                    mCategoriesCache = categories;
+                    loadCategoriesCallback.onCategoriesLoaded(categories);
+
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+
+        }else {
+
+            loadCategoriesCallback.onCategoriesLoaded(mCategoriesCache);
+        }
+
+    }
 
 
 }

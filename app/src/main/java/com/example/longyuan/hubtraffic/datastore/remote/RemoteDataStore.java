@@ -5,6 +5,8 @@ import android.util.Log;
 import com.example.longyuan.hubtraffic.App;
 import com.example.longyuan.hubtraffic.datastore.DataStore;
 import com.example.longyuan.hubtraffic.network.api.PornhubAPI;
+import com.example.longyuan.hubtraffic.pojo.category.CategoriesResponse;
+import com.example.longyuan.hubtraffic.pojo.category.Category;
 import com.example.longyuan.hubtraffic.pojo.star.StarsItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosResponse;
@@ -30,6 +32,8 @@ public class RemoteDataStore implements DataStore {
     private final static String TAG = RemoteDataStore.class.getSimpleName();
 
     private List<StarsItem> mStarsItems;
+
+    private List<Category> mCategories;
 
     @Inject
     PornhubAPI mPornhubAPI;
@@ -58,6 +62,16 @@ public class RemoteDataStore implements DataStore {
             queries.put("page", String.valueOf(random));
         }
         queries.put("thumbsize", "medium");
+
+       /* List<String> star = new ArrayList<>();
+
+        star.add("amy");
+        star.add("adams");
+
+        List<String> tags = new ArrayList<>();
+
+        tags.add("tits");
+        tags.add("teen");*/
 
         mPornhubAPI.getVideos(queries)
                 .subscribeOn(Schedulers.io())
@@ -93,7 +107,7 @@ public class RemoteDataStore implements DataStore {
                 .filter(starsItem -> !starsItem.getStar().getStarThumb().equals(""))
                 .filter(starsItem -> !starsItem.getStar().getGender().equals("male"))
                 .filter(starsItem -> !starsItem.getStar().getStarThumb().contains("pornstars/default"))
-                .filter(starsItem -> Integer.parseInt(starsItem.getStar().getVideosCount()) >500)
+                .filter(starsItem -> Integer.parseInt(starsItem.getStar().getVideosCount()) > 800)
                 .subscribe(starsItem -> mStarsItems.add(starsItem),throwable -> loadStarsCallback.onError(throwable.getLocalizedMessage()),() -> loadStarsCallback.onStarsLoaded(mStarsItems) );
                 // .map(data -> checkLatestPOstList(data))
 
@@ -101,4 +115,30 @@ public class RemoteDataStore implements DataStore {
     }
 
 
-}
+
+    public void loadCategories (LoadCategoriesCallback loadCategoriesCallback) {
+
+
+        if(mCategories == null)
+        {
+            mCategories = new ArrayList<>();
+        }
+        else
+        {
+            loadCategoriesCallback.onCategoriesLoaded(mCategories);
+        }
+
+        mPornhubAPI.getCategories()
+                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(categoriesResponse -> Observable.from(categoriesResponse.getCategories()))
+                .filter(category -> !category.getCategory().contains("gay"))
+                // .map(data -> checkLatestPOstList(data))
+                .subscribe(data ->  mCategories.add(data),throwable -> loadCategoriesCallback.onError(throwable.getLocalizedMessage()),() -> loadCategoriesCallback.onCategoriesLoaded(mCategories));
+
+
+    }
+
+
+
+    }

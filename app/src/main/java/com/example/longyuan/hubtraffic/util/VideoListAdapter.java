@@ -61,6 +61,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
         holder.aTextView_title.setText(aPost.getTitle());
 
+        holder.textView_viewed.setText(aPost.getViews());
+
+        holder.textView_rating.setText(aPost.getRating());
+
         //holder.aVideoView.setMediaController(new MediaController(mContext));
 
 //设置视频源播放res/raw中的文件,文件名小写字母,格式: 3gp,mp4等,flv的不一定支持;
@@ -119,13 +123,13 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
     public static class VideoListViewHolder extends RecyclerView.ViewHolder{
 
-      /*  @BindView(R.id.textView)
-        TextView textView1;
+       @BindView(R.id.textView_viewed)
+        TextView textView_viewed;
 
-        @BindView(R.id.textView2)
-        TextView textView2;
+        @BindView(R.id.textView_rating)
+        TextView textView_rating;
 
-        @BindView(R.id.textView3)
+       /*  @BindView(R.id.textView3)
         TextView textView3;*/
 
         @BindView(R.id.video_item_id)

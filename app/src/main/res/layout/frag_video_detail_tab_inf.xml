@@ -11,6 +11,29 @@
         tools:context="com.example.longyuan.hubtraffic.videodetail.VideoDetailTabInfFragment">
 
         <!-- TODO: Update blank fragment layout -->
+
+        <TextView
+            android:id="@+id/video_detail_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="From:"
+            android:textStyle="bold" />
+
+
+        <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/star_container_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignContent="flex_start"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap">
+
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

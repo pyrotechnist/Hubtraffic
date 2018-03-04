@@ -22,17 +22,20 @@ public class VideosItem{
 	@SerializedName("tags")
 	private List<TagsItem> tags;
 
-	@SerializedName("categories")
-	private List<CategoriesItem> categories;
-
 	@SerializedName("duration")
 	private String duration;
 
 	@SerializedName("ratings")
 	private int ratings;
 
+	@SerializedName("segment")
+	private String segment;
+
 	@SerializedName("default_thumb")
 	private String defaultThumb;
+
+	@SerializedName("categories")
+	private List<CategoriesItem> categories;
 
 	@SerializedName("publish_date")
 	private String publishDate;
@@ -47,7 +50,7 @@ public class VideosItem{
 	private List<ThumbsItem> thumbs;
 
 	@SerializedName("pornstars")
-	private List<Object> pornstars;
+	private List<PornstarsItem> pornstars;
 
 	public void setThumb(String thumb){
 		this.thumb = thumb;
@@ -89,14 +92,6 @@ public class VideosItem{
 		return tags;
 	}
 
-	public void setCategories(List<CategoriesItem> categories){
-		this.categories = categories;
-	}
-
-	public List<CategoriesItem> getCategories(){
-		return categories;
-	}
-
 	public void setDuration(String duration){
 		this.duration = duration;
 	}
@@ -113,12 +108,28 @@ public class VideosItem{
 		return ratings;
 	}
 
+	public void setSegment(String segment){
+		this.segment = segment;
+	}
+
+	public String getSegment(){
+		return segment;
+	}
+
 	public void setDefaultThumb(String defaultThumb){
 		this.defaultThumb = defaultThumb;
 	}
 
 	public String getDefaultThumb(){
 		return defaultThumb;
+	}
+
+	public void setCategories(List<CategoriesItem> categories){
+		this.categories = categories;
+	}
+
+	public List<CategoriesItem> getCategories(){
+		return categories;
 	}
 
 	public void setPublishDate(String publishDate){
@@ -153,11 +164,11 @@ public class VideosItem{
 		return thumbs;
 	}
 
-	public void setPornstars(List<Object> pornstars){
+	public void setPornstars(List<PornstarsItem> pornstars){
 		this.pornstars = pornstars;
 	}
 
-	public List<Object> getPornstars(){
+	public List<PornstarsItem> getPornstars(){
 		return pornstars;
 	}
 
@@ -169,11 +180,12 @@ public class VideosItem{
 			",rating = '" + rating + '\'' + 
 			",title = '" + title + '\'' + 
 			",url = '" + url + '\'' + 
-			",tags = '" + tags + '\'' +
-					",categories = '" + categories + '\'' +
-					",duration = '" + duration + '\'' +
+			",tags = '" + tags + '\'' + 
+			",duration = '" + duration + '\'' + 
 			",ratings = '" + ratings + '\'' + 
+			",segment = '" + segment + '\'' + 
 			",default_thumb = '" + defaultThumb + '\'' + 
+			",categories = '" + categories + '\'' + 
 			",publish_date = '" + publishDate + '\'' + 
 			",views = '" + views + '\'' + 
 			",video_id = '" + videoId + '\'' + 

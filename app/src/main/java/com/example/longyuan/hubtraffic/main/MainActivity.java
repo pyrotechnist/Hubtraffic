@@ -1,5 +1,6 @@
 package com.example.longyuan.hubtraffic.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 
 import com.example.longyuan.hubtraffic.App;
 import com.example.longyuan.hubtraffic.R;
+import com.example.longyuan.hubtraffic.category.CategoryActivity;
 
 import javax.inject.Inject;
 
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity
     public static final String EXTRA_TAG = "TAG";
 
     public static final String EXTRA_CATEGORY = "CATEGORY";
+
+    public static final String EXTRA_STAR = "STAR";
 
     private String mTag;
 
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 
         mTag = getIntent().getStringExtra(EXTRA_TAG);
 
-        mCategory = getIntent().getStringExtra(mCategory);
+        mCategory = getIntent().getStringExtra(EXTRA_CATEGORY);
 
         mStarName = getIntent().getStringExtra(EXTRA_STAR);
 
@@ -139,6 +143,16 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.action_category) {
+
+            Intent intent = new Intent(this, CategoryActivity.class);
+
+
+            startActivity(intent);
+
             return true;
         }
 

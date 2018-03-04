@@ -2,8 +2,10 @@ package com.example.longyuan.hubtraffic.videodetail;
 
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.example.longyuan.hubtraffic.datastore.DataStore;
 import com.example.longyuan.hubtraffic.datastore.VideoRepository;
 import com.example.longyuan.hubtraffic.main.MainActivity;
 import com.example.longyuan.hubtraffic.pojo.video.CategoriesItem;
+import com.example.longyuan.hubtraffic.pojo.video.PornstarsItem;
 import com.example.longyuan.hubtraffic.pojo.video.TagsItem;
 import com.example.longyuan.hubtraffic.pojo.video.VideosItem;
 import com.google.android.flexbox.FlexboxLayout;
@@ -28,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.longyuan.hubtraffic.main.MainActivity.EXTRA_CATEGORY;
+import static com.example.longyuan.hubtraffic.main.MainActivity.EXTRA_STAR;
 import static com.example.longyuan.hubtraffic.main.MainActivity.EXTRA_TAG;
 import static com.example.longyuan.hubtraffic.videodetail.VideoDetailActivity.EXTRA_VIDEO_ID;
 
@@ -48,6 +52,13 @@ public class VideoDetailTabInfFragment extends Fragment {
 
     @BindView(R.id.tag_container_layout2)
     FlexboxLayout mLinearLayout_tag2;
+
+    @BindView(R.id.star_container_layout)
+    FlexboxLayout mFlexboxLayout_star;
+
+
+    @BindView(R.id.video_detail_star)
+    TextView mTextView_Star;
 
     private String mVideo_Id ;
 
@@ -110,6 +121,7 @@ public class VideoDetailTabInfFragment extends Fragment {
             public void onVideoItemLoaded(VideosItem videosItem) {
                 addCategory(videosItem.getCategories());
                 addTag(videosItem.getTags());
+                addStars(videosItem.getPornstars());
             }
 
             @Override
@@ -117,6 +129,41 @@ public class VideoDetailTabInfFragment extends Fragment {
 
             }
         },mVideo_Id);
+    }
+
+    private void addStars(List<PornstarsItem> pornstars) {
+
+        for (PornstarsItem pornstarsItem : pornstars) {
+
+            TextView textView = new TextView(getContext());
+
+            textView.setText(pornstarsItem.getPornstarName());
+
+            textView.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
+            textView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGray));
+
+            LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            textViewLayoutParams.setMargins(10, 5, 10, 5);
+
+            textView.setLayoutParams(textViewLayoutParams);
+
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+
+                    intent.putExtra(EXTRA_STAR, pornstarsItem.getPornstarName());
+
+                    getContext().startActivity(intent);
+                }
+            });
+
+            mFlexboxLayout_star.addView(textView);
+        }
+
     }
 
     private void addCategory(List<CategoriesItem> categories) {

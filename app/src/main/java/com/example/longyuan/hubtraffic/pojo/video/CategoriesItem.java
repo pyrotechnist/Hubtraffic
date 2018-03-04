@@ -1,11 +1,10 @@
 package com.example.longyuan.hubtraffic.pojo.video;
 
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-import javax.annotation.Generated;
-
 @Generated("com.robohorse.robopojogenerator")
-public class CategoriesItem {
+public class CategoriesItem{
 
 	@SerializedName("category")
 	private String category;
@@ -21,8 +20,8 @@ public class CategoriesItem {
 	@Override
  	public String toString(){
 		return 
-			"TagsItem{" + 
-			"category = '" + category + '\'' +
+			"CategoriesItem{" + 
+			"category = '" + category + '\'' + 
 			"}";
 		}
 }
